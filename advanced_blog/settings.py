@@ -6,7 +6,7 @@ SECRET_KEY = "secret-key"
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','Muqadas233.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','Muqadas21.pythonanywhere.com']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
