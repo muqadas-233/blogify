@@ -6,7 +6,7 @@ SECRET_KEY = "secret-key"
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','blogifyy.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','Blogifyy.pythonanywhere.com']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
