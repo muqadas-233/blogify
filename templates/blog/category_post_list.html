@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Category: {{ category.name }} | Advanced Blog{% endblock title %}
+
+{% block content %}
+<h3 class="mb-3">Category: {{ category.name }}</h3>
+<div class="row g-4">
+  {% for post in posts %}
+    <div class="col-md-6 col-lg-4">
+      {% include "blog/partials/post_card.html" with post=post %}
+    </div>
+  {% empty %}
+    <p>No posts in this category.</p>
+  {% endfor %}
+</div>
+{% include "includes/pagination.html" with page_obj=page_obj %}
+{% endblock content %}

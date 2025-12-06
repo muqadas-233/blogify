@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Advanced Blog{% endblock title %}
+
+{% block content %}
+<h3 class="mb-3">Author dashboard</h3>
+
+<div class="row g-3">
+  <div class="col-md-8">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="mb-0">Your posts</h5>
+          <a href="{% url 'blog:post_create' %}" class="btn btn-sm btn-primary">New post</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for post in posts %}
+                <tr>
+                  <td><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></td>
+                  <td>
+                    {% if post.status == "published" %}
+                      <span class="badge badge-status-published">Published</span>
+                    {% else %}
+                      <span class="badge badge-status-draft">Draft</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ post.created_at|date:"M d, Y" }}</td>
+                  <td>
+                    <a href="{% url 'blog:post_edit' post.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                  </td>
+                </tr>
+              {% empty %}
+                <tr><td colspan="4">No posts yet.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm mb-3">
+      <div class="card-body">
+        <h6 class="mb-2">Pending comments</h6>
+        {% for c in pending_comments %}
+          <div class="border rounded p-2 mb-2 bg-white">
+            <p class="mb-1 small"><strong>{{ c.user.username }}</strong> on
+              <a href="{{ c.post.get_absolute_url }}">{{ c.post.title }}</a>
+            </p>
+            <p class="mb-2 small">{{ c.content|truncatechars:80 }}</p>
+            <div class="d-flex gap-2">
+              <a href="{% url 'blog:comment_approve' c.pk %}" class="btn btn-sm btn-success">Approve</a>
+              <a href="{% url 'blog:comment_delete' c.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-muted small mb-0">No comments awaiting moderation.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

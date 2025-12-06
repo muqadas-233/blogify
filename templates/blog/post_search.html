@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Search | Advanced Blog{% endblock title %}
+
+{% block content %}
+<h3 class="mb-3">Search results for "{{ query }}"</h3>
+<div class="row g-4">
+  {% for post in posts %}
+    <div class="col-md-6 col-lg-4">
+      {% include "blog/partials/post_card.html" with post=post %}
+    </div>
+  {% empty %}
+    <p>No results found.</p>
+  {% endfor %}
+</div>
+{% include "includes/pagination.html" with page_obj=page_obj %}
+{% endblock content %}
